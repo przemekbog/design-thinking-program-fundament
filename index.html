@@ -1,1 +1,755 @@
-<h1>Hello, world!</h1>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Fundament - Serwis Rzeczypospolitej Polskiej | gov.pl</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        gov: {
+                            red: '#D92228',
+                            blue: '#0F3C5A',
+                            lightBlue: '#E6F0F9',
+                            gray: '#F3F4F6',
+                            darkGray: '#374151',
+                            green: '#10B981'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gov-border-top { border-top: 4px solid #D92228; }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F3F4F6;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #D1D5DB;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Pasek gov.pl -->
+    <div class="bg-gray-100 text-sm border-b border-gray-200 py-2 px-4 shrink-0">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-gov-red" viewBox="0 0 24 24" fill="currentColor">
+                    <rect width="24" height="12" fill="white"/>
+                    <rect y="12" width="24" height="12" fill="#D92228"/>
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                </svg>
+                <span class="text-gray-600 font-medium">Serwis Rzeczypospolitej Polskiej</span>
+            </div>
+            <div class="hidden md:flex gap-6 text-gov-blue font-medium text-xs uppercase tracking-wider">
+                <a href="#" onclick="showView('landing')" class="hover:underline">Strona główna</a>
+                <a href="#o-programie" onclick="showView('landing')" class="hover:underline">O programie</a>
+                <a href="#historie" onclick="showView('landing')" class="hover:underline">Historie</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Główna nawigacja (Styl e-Urząd) -->
+    <header class="bg-white shadow-sm gov-border-top sticky top-0 z-50 shrink-0">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="#" onclick="showView('landing')" class="text-2xl font-black text-gov-blue flex items-center gap-2 tracking-tight">
+                    <svg class="w-8 h-8 text-gov-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                    Program <span class="text-gov-red">Fundament</span>
+                </a>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#o-programie" onclick="showView('landing')" class="text-gray-600 hover:text-gov-blue font-semibold transition-colors">O programie</a>
+                <a href="#korzysci" onclick="showView('landing')" class="text-gray-600 hover:text-gov-blue font-semibold transition-colors">Korzyści</a>
+                <a href="#historie" onclick="showView('landing')" class="text-gray-600 hover:text-gov-blue font-semibold transition-colors">Rezultaty</a>
+            </nav>
+            <div class="flex gap-3">
+                <button id="btn-landing" onclick="showView('landing')" class="hidden bg-gray-100 hover:bg-gray-200 text-gov-blue px-4 py-2 rounded font-bold text-sm transition-all border border-gray-300">
+                    Strona Główna
+                </button>
+                <button id="btn-panel" onclick="showView('dashboard')" class="bg-gov-blue hover:bg-blue-950 text-white px-6 py-2.5 rounded font-bold transition-all shadow-md hover:shadow-lg text-sm">
+                    Panel Uczestnika
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- KONTENER NA WIDOKI (LANDING / DASHBOARD) -->
+    <main class="flex-grow">
+
+        <!-- WIDOK: LANDING PAGE -->
+        <div id="view-landing" class="block">
+            <!-- Hero Section -->
+            <section class="bg-gov-lightBlue py-16 md:py-24 overflow-hidden relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div>
+                        <span class="inline-block py-1.5 px-4 rounded-full bg-white text-gov-blue font-extrabold text-xs uppercase tracking-widest mb-6 shadow-sm border border-blue-200">
+                            Zintegrowany Program Wyjścia z Kryzysu
+                        </span>
+                        <h1 class="text-4xl md:text-5xl font-black text-gov-blue leading-tight mb-6 tracking-tight">
+                            Bezpieczny dom.<br>Gwarantowana praca.<br><span class="text-gov-red">Nowe życie.</span>
+                        </h1>
+                        <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                            Program „Fundament” to pierwszy w Polsce system, który łączy w jeden spójny pakiet stabilne zatrudnienie u sprawdzonych pracodawców oraz gwarantowane, tanie zakwaterowanie. Zdejmujemy lęk o jutro, dając warunki do pełnej niezależności.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="document.location = 'https://forms.gle/F9PC8CRUHXUZt1V39'" class="bg-gov-red hover:bg-red-700 text-white px-8 py-4 rounded text-lg font-extrabold transition-all shadow-lg hover:shadow-xl text-center">
+                                Aplikuj jako uczestnik (Beneficjent)
+                            </button>
+                            <a href="#o-programie" class="bg-white hover:bg-gray-50 border-2 border-gov-blue text-gov-blue px-8 py-4 rounded text-lg font-bold transition-all shadow-sm text-center flex items-center justify-center">
+                                Dowiedz się więcej
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hidden md:block relative">
+                        <!-- Diagram implikacji -->
+                        <div class="bg-white p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 relative">
+                            <svg class="w-full h-auto" viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#0F3C5A" />
+                                    </marker>
+                                    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                                        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0F3C5A" flood-opacity="0.1"/>
+                                    </filter>
+                                </defs>
+
+                                <!-- Strzałki (Implication arrows) -->
+                                <path d="M110 205 Q 110 160 165 140" stroke="#0F3C5A" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+                                <path d="M290 205 Q 290 160 235 140" stroke="#0F3C5A" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+
+                                <!-- Węzeł Lewy: Stabilne zatrudnienie -->
+                                <g filter="url(#shadow)">
+                                    <rect x="25" y="205" width="170" height="70" rx="8" fill="#0F3C5A"/>
+                                    <svg x="95" y="212" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                    </svg>
+                                    <text x="110" y="262" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Stabilne zatrudnienie</text>
+                                </g>
+
+                                <!-- Węzeł Prawy: Dach nad głową -->
+                                <g filter="url(#shadow)">
+                                    <rect x="205" y="205" width="170" height="70" rx="8" fill="#0F3C5A"/>
+                                    <svg x="275" y="212" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                    </svg>
+                                    <text x="290" y="262" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Dach nad głową</text>
+                                </g>
+
+                                <!-- Znak Plusa w środku -->
+                                <g transform="translate(185, 225)">
+                                    <circle cx="15" cy="15" r="14" fill="white" stroke="#E5E7EB" stroke-width="2" filter="url(#shadow)"/>
+                                    <path d="M15 8 V22 M8 15 H22" stroke="#D92228" stroke-width="3" stroke-linecap="round"/>
+                                </g>
+
+                                <!-- Węzeł Górny: Spełniające życie -->
+                                <g filter="url(#shadow)">
+                                    <rect x="90" y="55" width="220" height="80" rx="12" fill="white" stroke="#D92228" stroke-width="3"/>
+                                    <svg x="183" y="65" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="5"></circle>
+                                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                    </svg>
+                                    <text x="200" y="118" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0F3C5A" text-anchor="middle">Spełniające życie</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Model działania -->
+            <section id="o-programie" class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-extrabold text-gov-blue mb-4">Dlaczego „Fundament” działa tam, gdzie inni zawodzą?</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto">Tradycyjne urzędy dają jedynie skierowania. My usuwamy fundamentalne lęki życiowe, dając stabilny i zabezpieczony start.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Beneficjent -->
+                        <div class="bg-gray-50 rounded-xl p-8 border border-gray-100 hover:shadow-lg transition-all relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gov-red"></div>
+                            <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-6 text-gov-red">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gov-blue mb-3">Dla Beneficjenta</h3>
+                            <ul class="space-y-3 text-gray-600 text-sm">
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Stabilne zatrudnienie od pierwszego dnia</li>
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Pokój/mieszkanie o regulowanym niskim czynszu</li>
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Bezpieczne warunki i czas na rozwój zawodowy</li>
+                            </ul>
+                        </div>
+
+                        <!-- Państwo -->
+                        <div class="bg-gray-50 rounded-xl p-8 border border-gray-100 hover:shadow-lg transition-all relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gov-blue"></div>
+                            <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-gov-blue">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gov-blue mb-3">Dla Budżetu Państwa</h3>
+                            <ul class="space-y-3 text-gray-600 text-sm">
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Wyjście z systemu wypłacania zasiłków</li>
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Bezpośrednie wpłaty podatków i opłat czynszowych</li>
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Wzrost gospodarczy dzięki nowym pracownikom</li>
+                            </ul>
+                        </div>
+
+                        <!-- Firma -->
+                        <div class="bg-gray-50 rounded-xl p-8 border border-gray-100 hover:shadow-lg transition-all relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gray-600"></div>
+                            <div class="w-14 h-14 bg-gray-200 rounded-full flex items-center justify-center mb-6 text-gray-700">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gov-blue mb-3">Dla Przedsiębiorcy</h3>
+                            <ul class="space-y-3 text-gray-600 text-sm">
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Ulgi podatkowe i stałe wsparcie kadrowe</li>
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Zmotywowany pracownik ze wsparciem asystenta</li>
+                                <li class="flex items-start"><svg class="w-5 h-5 text-gov-green mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Realny udział w polityce CSR i rozwoju regionu</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Chwytliwe hasło -->
+                    <div id="korzysci" class="mt-12 bg-gradient-to-r from-gov-lightBlue via-white to-gov-lightBlue rounded-xl p-8 text-center border border-blue-100 shadow-sm">
+                        <p class="text-xl md:text-2xl font-black text-gov-blue tracking-tight">
+                            Pewna praca, bezpieczny dom, stabilna przyszłość.
+                        </p>
+                        <p class="text-sm md:text-base text-gray-600 mt-2 font-medium">
+                            Buduj swoje jutro na solidnym <span class="text-gov-red font-semibold">Fundamencie</span> – programie, który wspiera Twoją drogę do samodzielności.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statystyki -->
+            <section class="py-16 bg-gov-blue text-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-blue-800">
+                        <div class="p-4">
+                            <div class="text-4xl md:text-5xl font-black text-gov-red mb-2">12 450</div>
+                            <div class="text-blue-200 font-bold uppercase tracking-wide text-xs">Obywateli już w programie</div>
+                            <div class="mt-2 text-sm text-blue-300">Zyskali stabilne zatrudnienie i bezpieczny dom</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-4xl md:text-5xl font-black text-white mb-2">50 000+</div>
+                            <div class="text-blue-200 font-bold uppercase tracking-wide text-xs">Przygotowanych miejsc</div>
+                            <div class="mt-2 text-sm text-blue-300">Tylu beneficjentów możemy przyjąć do 2028 r.</div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-4xl md:text-5xl font-black text-white mb-2">3 120</div>
+                            <div class="text-blue-200 font-bold uppercase tracking-wide text-xs font-bold">Przedsiębiorstw Partnerskich</div>
+                            <div class="mt-2 text-sm text-blue-300">Firmy korzystające ze specjalnych ulg zatrudnieniowych</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Historie sukcesu -->
+            <section id="historie" class="py-20 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-extrabold text-gov-blue mb-4">Oni odbudowali swoje życie</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto">Fundament to nie tabelki i liczby – to prawdziwi ludzie, którzy odzyskali podmiotowość i ruszyli do przodu.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Kamil (Nasz bohater panelu) -->
+                        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 relative hover:shadow-md transition-shadow">
+                            <div class="absolute -top-3 left-6 bg-gov-red text-white text-[10px] font-extrabold px-3 py-1 rounded shadow-sm">
+                                PIECZA ZASTĘPCZA & OZE
+                            </div>
+                            <p class="text-gray-600 italic mb-6 relative z-10 leading-relaxed text-base">
+                                "Opuszczając dom dziecka w wieku 19 lat, czułem ogromny lęk. Bez oszczędności nikt nie chciał wynająć mi pokoju w Warszawie. Fundament dał mi klucze do małego mieszkania przejściowego i skierował na staż w firmie montującej instalacje fotowoltaiczne. Moje życie ma dzisiaj bezpieczne i stabilne oparcie."
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center font-bold text-gov-blue text-xl">
+                                    K
+                                </div>
+                                <div>
+                                    <div class="font-bold text-gov-blue">Pan Kamil, 20 lat</div>
+                                    <div class="text-sm text-gray-500">Beneficjent od 6 miesięcy. Obecnie: Młodszy Monter OZE.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Historia 2 -->
+                        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 relative hover:shadow-md transition-shadow">
+                            <div class="absolute -top-3 left-6 bg-gov-blue text-white text-[10px] font-extrabold px-3 py-1 rounded shadow-sm">
+                                SAMOTNE RODZICIELSTWO
+                            </div>
+                            <p class="text-gray-600 italic mb-6 relative z-10 leading-relaxed text-base">
+                                "Wynajem mieszkania na wolnym rynku pochłaniał niemal całe moje zarobki. Byłam bliska rezygnacji z pracy, by wnioskować o zasiłki. Dzięki programowi otrzymałam bezpieczny lokal socjalny z regulowanym czynszem i etat w lokalnej szwalni partnerskiej. Mam wreszcie spokój i siłę do wychowania synka."
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center font-bold text-gov-red text-xl">
+                                    A
+                        </div>
+                        <div>
+                                    <div class="font-bold text-gov-blue">Pani Anna, 29 lat</div>
+                                    <div class="text-sm text-gray-500">Beneficjentka od 12 miesięcy. Obecnie: Szwaczka i kontrolerka jakości.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- WIDOK: PANEL UCZESTNIKA (DASHBOARD) -->
+        <div id="view-dashboard" class="hidden">
+            <div class="bg-gray-100 border-b border-gray-200 py-6 px-4">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-gov-green text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">Aktywny Uczestnik</span>
+                            <span class="text-gray-500 text-sm">| ID Programu: #FND-99281-2026</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-black text-gov-blue">Witaj ponownie, Kamilu!</h2>
+                        <p class="text-sm text-gray-600 font-medium">Twój dedykowany asystent: <strong class="text-gov-blue">mgr Jan Kowalski</strong></p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4 w-full md:w-auto">
+                        <div class="w-12 h-12 rounded-full bg-gov-lightBlue flex items-center justify-center text-gov-blue">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase font-bold">Konto Osobiste</p>
+                            <p class="text-sm font-bold text-gov-blue">Kamil Wiśniewski (20 l.)</p>
+                            <p class="text-xs text-gray-400">Piecza Zastępcza / Warszawa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- System Progress Tracker -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-gov-blue flex items-center gap-2">
+                            <svg class="w-5 h-5 text-gov-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Twoja Droga do Pełnej Samodzielności
+                        </h3>
+                        <span class="text-sm font-bold text-gov-blue bg-gov-lightBlue px-3 py-1 rounded-full">Faza 2: Stabilizacja</span>
+                    </div>
+                    <div class="relative pt-1">
+                        <div class="flex mb-2 items-center justify-between">
+                            <div>
+                                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gov-blue bg-gov-lightBlue">
+                                    Postęp Programu
+                                </span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-bold inline-block text-gov-blue">
+                                    50% realizacji
+                                </span>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden h-2.5 text-xs flex rounded bg-gray-100">
+                            <div style="width:50%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gov-blue transition-all duration-500"></div>
+                        </div>
+                    </div>
+                    <!-- Stages cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                        <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gov-green">
+                            <p class="text-xs font-bold text-gov-green">FAZA 1: Adaptacja (Zakończona)</p>
+                            <h4 class="text-sm font-bold text-gov-blue mt-1">Zakwaterowanie i wejście na staż</h4>
+                            <p class="text-xs text-gray-500 mt-1">Zabezpieczenie mieszkania i podpisanie umowy.</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-gov-blue">
+                            <p class="text-xs font-bold text-gov-blue">FAZA 2: Stabilizacja (Aktywna)</p>
+                            <h4 class="text-sm font-bold text-gov-blue mt-1">Utrzymanie etatu i oszczędzanie</h4>
+                            <p class="text-xs text-gray-500 mt-1">Budowanie nawyków, rozwój i odkładanie środków.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-300 opacity-60">
+                            <p class="text-xs font-bold text-gray-400">FAZA 3: Niezależność (Przyszła)</p>
+                            <h4 class="text-sm font-bold text-gray-600 mt-1">Własny najem i samodzielny zawód</h4>
+                            <p class="text-xs text-gray-500 mt-1">Przejście na tradycyjny komercyjny rynek.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid: Filar Mieszkaniowy, Zawodowy, Czat z Asystentem -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Filar Mieszkaniowy (Kolumna 1) -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gov-blue flex items-center gap-2">
+                                    <svg class="w-6 h-6 text-gov-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                                    Filar Mieszkaniowy
+                                </h3>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs font-extrabold px-2.5 py-1 rounded-full uppercase" id="rent-badge">Do zapłaty</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-gray-50 p-3.5 rounded-lg border border-gray-100">
+                                    <p class="text-xs text-gray-500 font-bold uppercase">Twój przydzielony lokal:</p>
+                                    <p class="text-base font-bold text-gov-blue mt-0.5">ul. Wspólna 12 m. 4, Warszawa</p>
+                                    <p class="text-xs text-gray-500 mt-1">Mieszkanie wspierane przejściowe (32m²)</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                        <p class="text-xs text-gray-500 font-bold uppercase">Opłata za czynsz:</p>
+                                        <p class="text-xl font-black text-gov-blue mt-1">650 PLN</p>
+                                        <p class="text-[10px] text-gov-green font-bold">Dofinansowanie: 75%</p>
+                                    </div>
+                                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                        <p class="text-xs text-gray-500 font-bold uppercase">Termin płatności:</p>
+                                        <p class="text-sm font-bold text-gov-blue mt-1.5" id="rent-due-date">30 czerwca 2026</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100">
+                            <button onclick="payRent()" id="btn-pay-rent" class="w-full bg-gov-red hover:bg-red-700 text-white font-bold py-3 px-4 rounded transition-all text-sm flex items-center justify-center gap-2 shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                Opłać czynsz (650 PLN)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filar Zawodowy (Kolumna 2) -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
+                                <h3 class="text-lg font-bold text-gov-blue flex items-center gap-2">
+                                    <svg class="w-6 h-6 text-gov-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    Filar Zawodowy
+                                </h3>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-2.5 py-1 rounded-full uppercase">Zatrudniony</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-gray-50 p-3.5 rounded-lg border border-gray-100">
+                                    <p class="text-xs text-gray-500 font-bold uppercase">Twój pracodawca partnerski:</p>
+                                    <p class="text-base font-bold text-gov-blue mt-0.5">EcoVolt Sp. z o.o.</p>
+                                    <p class="text-xs text-gray-500 mt-1">Branża: Odnawialne Źródła Energii (OZE)</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                        <p class="text-xs text-gray-500 font-bold uppercase">Stanowisko:</p>
+                                        <p class="text-sm font-bold text-gov-blue mt-1">Młodszy Monter OZE</p>
+                                        <p class="text-[10px] text-gray-400">Umowa o pracę stabilna</p>
+                                    </div>
+                                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                        <p class="text-xs text-gray-500 font-bold uppercase">Wypłata:</p>
+                                        <p class="text-base font-black text-gov-blue mt-1">4 300 PLN</p>
+                                        <p class="text-[10px] text-gov-green font-bold">Wypłata stabilna</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100">
+                            <a href="#" class="w-full bg-gov-blue hover:bg-blue-950 text-white font-bold py-3 px-4 rounded transition-all text-sm flex items-center justify-center gap-2 shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                Pobierz umowę i dokumenty
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Asystent i Zadania (Kolumna 3) -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col justify-between h-[450px]">
+                        <div class="flex flex-col h-full justify-between">
+                            <!-- Header czatu -->
+                            <div class="flex items-center gap-3 pb-3 border-b border-gray-100">
+                                <div class="w-10 h-10 rounded-full bg-gov-lightBlue flex items-center justify-center font-bold text-gov-blue">
+                                    JK
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-gov-blue">mgr Jan Kowalski</h4>
+                                    <p class="text-xs text-gov-green flex items-center gap-1">
+                                        <span class="inline-block w-2 h-2 rounded-full bg-gov-green"></span>
+                                        Twój asystent (Online)
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Okno rozmowy czatu -->
+                            <div id="chat-box" class="flex-grow my-4 overflow-y-auto pr-2 space-y-3 text-xs custom-scrollbar">
+                                <div class="bg-gray-100 p-2.5 rounded-lg text-gray-700 max-w-[85%]">
+                                    Cześć Kamil! Jak mija Twój pierwszy pełny tydzień na montażach? Pamiętaj, że w piątek mamy spotkanie podsumowujące.
+                                </div>
+                                <div class="bg-blue-50 p-2.5 rounded-lg text-gov-blue max-w-[85%] ml-auto text-right">
+                                    Dzień dobry panie Janie! Jest świetnie, monterzy na dachu dużo mi tłumaczą. Czynsz opłacę dzisiaj wieczorem.
+                                </div>
+                                <div class="bg-gray-100 p-2.5 rounded-lg text-gray-700 max-w-[85%]">
+                                    Świetna wiadomość! System automatycznie odnotuje wpłatę. Do zobaczenia w piątek o 15:00.
+                                </div>
+                            </div>
+
+                            <!-- Input czatu -->
+                            <div class="flex gap-2">
+                                <input id="chat-input" type="text" placeholder="Wpisz wiadomość do asystenta..." class="flex-grow border border-gray-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-gov-blue">
+                                <button onclick="sendMessage()" class="bg-gov-blue hover:bg-blue-950 text-white px-4 py-2 rounded font-bold text-xs transition-all">
+                                    Wyślij
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dolna belka: Zadania adaptacyjne -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mt-8">
+                    <h3 class="text-lg font-bold text-gov-blue flex items-center gap-2 mb-4">
+                        <svg class="w-6 h-6 text-gov-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        Twoje Cele i Zadania na ten Tydzień
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-gray-200 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" checked disabled class="w-4 h-4 text-gov-blue rounded border-gray-300 focus:ring-gov-blue">
+                                <span class="text-sm font-semibold text-gray-600 line-through">Założyć konto oszczędnościowe w banku partnerskim</span>
+                            </div>
+                            <span class="bg-green-100 text-green-800 text-[10px] font-bold px-2.5 py-1 rounded-full">Wykonane</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-gray-200 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input id="task-rent" type="checkbox" onclick="toggleTask('task-rent')" class="w-4 h-4 text-gov-blue rounded border-gray-300 focus:ring-gov-blue">
+                                <span id="task-rent-text" class="text-sm font-semibold text-gov-blue">Opłacić niski czynsz wspierany za bieżący miesiąc (650 PLN)</span>
+                            </div>
+                            <span id="task-rent-badge" class="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2.5 py-1 rounded-full">W toku</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-gray-200 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="task-bhp" onclick="toggleTask('task-bhp')" class="w-4 h-4 text-gov-blue rounded border-gray-300 focus:ring-gov-blue">
+                                <span id="task-bhp-text" class="text-sm font-semibold text-gov-blue">Ukończyć internetowy moduł szkolenia BHP w panelu pracownika</span>
+                            </div>
+                            <span id="task-bhp-badge" class="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2.5 py-1 rounded-full">W toku</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Fundusze Europejskie (Obowiązkowa sekcja dotacyjna) -->
+    <section class="border-t border-gray-200 bg-white py-8 shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex items-center gap-6 flex-wrap justify-center md:justify-start">
+                <!-- Prowizoryczne logo Funduszy Europejskich -->
+                <div class="flex flex-col items-center">
+                    <div class="flex space-x-1 mb-1">
+                        <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                        <div class="w-3 h-3 bg-red-600 rounded-full"></div>
+                        <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    </div>
+                    <span class="text-xs font-bold text-gray-700">Fundusze<br>Europejskie</span>
+                </div>
+                <!-- Prowizoryczne logo Flagi RP -->
+                <div class="flex flex-col items-center border-l border-gray-300 pl-6">
+                    <div class="w-8 h-4 bg-white border border-gray-200 mb-1"></div>
+                    <div class="w-8 h-4 bg-red-600 mb-1"></div>
+                    <span class="text-xs font-bold text-gray-700">Rzeczpospolita<br>Polska</span>
+                </div>
+                 <!-- Oficjalne logo Unii Europejskiej -->
+                 <div class="flex flex-col items-center border-l border-gray-300 pl-6">
+                    <svg class="w-12 h-8 mb-1 shadow-sm" viewBox="0 0 270 180" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="270" height="180" fill="#003399"/>
+                        <defs>
+                            <polygon id="eu-star" fill="#FFCC00" points="0,-5 1.47,-1.05 4.76,-1.05 2.1,0.89 3.12,4.05 0,1.8 -3.12,4.05 -2.1,0.89 -4.76,-1.05 -1.47,-1.05"/>
+                        </defs>
+                        <g transform="translate(135,90)">
+                            <use href="#eu-star" x="0" y="-60"/>
+                            <use href="#eu-star" x="30" y="-51.96"/>
+                            <use href="#eu-star" x="51.96" y="-30"/>
+                            <use href="#eu-star" x="60" y="0"/>
+                            <use href="#eu-star" x="51.96" y="30"/>
+                            <use href="#eu-star" x="30" y="51.96"/>
+                            <use href="#eu-star" x="0" y="60"/>
+                            <use href="#eu-star" x="-30" y="51.96"/>
+                            <use href="#eu-star" x="-51.96" y="30"/>
+                            <use href="#eu-star" x="-60" y="0"/>
+                            <use href="#eu-star" x="-51.96" y="-30"/>
+                            <use href="#eu-star" x="-30" y="-51.96"/>
+                        </g>
+                    </svg>
+                    <span class="text-xs font-bold text-gray-700">Unia Europejska</span>
+                </div>
+            </div>
+            <div class="text-sm text-gray-500 max-w-xl text-center md:text-right font-medium">
+                Projekt "Fundament – systemowa aktywizacja zawodowo-mieszkaniowa" jest współfinansowany ze środków Europejskiego Funduszu Społecznego Plus w ramach Regionalnego Programu Operacyjnego.
+            </div>
+        </div>
+    </section>
+
+    <!-- Stopka gov.pl -->
+    <footer class="bg-gov-darkGray text-gray-300 py-10 shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h4 class="text-white font-bold mb-4">O programie</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Cel programu Fundament</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Warunki uczestnictwa</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Podstawa prawna</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Regulamin lokali socjalnych</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Dla Uczestnika</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Złóż wniosek online</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Kalkulator dochodów</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Baza wolnych mieszkań</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Dla Pracodawcy</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Rejestracja firmy</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Kalkulator ulg podatkowych</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Zgłoś wolne wakaty</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Pomoc</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Pytania i odpowiedzi (FAQ)</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Infolinia: 22 123 45 67</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Znajdź lokalny urząd</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-gray-600 text-xs text-center flex flex-col md:flex-row justify-between items-center">
+            <p>© 2026 Ministerstwo Pracy i Polityki Społecznej.</p>
+            <div class="space-x-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white">Deklaracja dostępności</a>
+                <a href="#" class="hover:text-white">Polityka prywatności</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funkcja przełączania widoków na SPA
+        function showView(viewName) {
+            const landing = document.getElementById('view-landing');
+            const dashboard = document.getElementById('view-dashboard');
+            const btnLanding = document.getElementById('btn-landing');
+            const btnPanel = document.getElementById('btn-panel');
+
+            if (viewName === 'dashboard') {
+                landing.classList.add('hidden');
+                dashboard.classList.remove('hidden');
+                btnLanding.classList.remove('hidden');
+                btnPanel.classList.add('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                landing.classList.remove('hidden');
+                dashboard.classList.add('hidden');
+                btnLanding.classList.add('hidden');
+                btnPanel.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Funkcja symulacji opłacenia czynszu
+        function payRent() {
+            const btn = document.getElementById('btn-pay-rent');
+            const badge = document.getElementById('rent-badge');
+            const dueDate = document.getElementById('rent-due-date');
+            const taskCheck = document.getElementById('task-rent');
+            const taskText = document.getElementById('task-rent-text');
+            const taskBadge = document.getElementById('task-rent-badge');
+
+            // Zmiana statusu w boksie Filaru Mieszkaniowego
+            badge.innerText = 'Opłacone';
+            badge.className = 'bg-green-100 text-green-800 text-xs font-extrabold px-2.5 py-1 rounded-full uppercase';
+            dueDate.innerText = 'Brak zaległości';
+            dueDate.className = 'text-sm font-bold text-gov-green mt-1.5';
+            btn.disabled = true;
+            btn.innerText = 'Czynsz opłacony pomyślnie';
+            btn.className = 'w-full bg-gov-green text-white font-bold py-3 px-4 rounded transition-all text-sm flex items-center justify-center gap-2 cursor-default';
+
+            // Automatyczne odznaczenie powiązanego zadania adaptacyjnego
+            if (taskCheck) {
+                taskCheck.checked = true;
+                taskText.className = 'text-sm font-semibold text-gray-600 line-through';
+                taskBadge.innerText = 'Wykonane';
+                taskBadge.className = 'bg-green-100 text-green-800 text-[10px] font-bold px-2.5 py-1 rounded-full';
+            }
+        }
+
+        // Interakcja ze zmianami na liście zadań
+        function toggleTask(taskId) {
+            const task = document.getElementById(taskId);
+            const text = document.getElementById(taskId + '-text');
+            const badge = document.getElementById(taskId + '-badge');
+
+            if (task.checked) {
+                text.className = 'text-sm font-semibold text-gray-600 line-through';
+                badge.innerText = 'Wykonane';
+                badge.className = 'bg-green-100 text-green-800 text-[10px] font-bold px-2.5 py-1 rounded-full';
+                
+                // Jeśli użytkownik ręcznie odznaczył płatność czynszu
+                if (taskId === 'task-rent') {
+                    payRent();
+                }
+            } else {
+                text.className = 'text-sm font-semibold text-gov-blue';
+                badge.innerText = 'W toku';
+                badge.className = 'bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2.5 py-1 rounded-full';
+            }
+        }
+
+        // Obsługa czatu z asystentem
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const chatBox = document.getElementById('chat-box');
+            const messageText = input.value.trim();
+
+            if (messageText !== '') {
+                // Tworzenie nowej chmurki wiadomości uczestnika
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'bg-blue-50 p-2.5 rounded-lg text-gov-blue max-w-[85%] ml-auto text-right';
+                messageDiv.innerText = messageText;
+                
+                chatBox.appendChild(messageDiv);
+                input.value = '';
+                
+                // Autoscroll do najnowszej wiadomości
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Krótkie opóźnienie automatycznej reakcji asystenta
+                setTimeout(() => {
+                    const replyDiv = document.createElement('div');
+                    replyDiv.className = 'bg-gray-100 p-2.5 rounded-lg text-gray-700 max-w-[85%]';
+                    replyDiv.innerText = 'Odebrałem wiadomość. Przeanalizuję to i odpiszę wkrótce!';
+                    chatBox.appendChild(replyDiv);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1500);
+            }
+        }
+
+        // Uruchamianie wysyłania wiadomości klawiszem Enter
+        document.getElementById('chat-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
